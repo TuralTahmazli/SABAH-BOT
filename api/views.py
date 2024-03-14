@@ -135,7 +135,7 @@ class MyEmbed(Embed):
         with connect("database/log.db") as connection:
             cursor = connection.cursor()
             cursor.execute(
-                "INSERT INTO Log (writer_discord_id, stream_start_time, column_name, point) VALUES (?, ?, ?, ?)",
+                "INSERT INTO Log (writer_discord_id, wroten_name, column_name, point) VALUES (?, ?, ?, ?)",
                 (writer.id, wroten, column_name, point),
             )
             cursor.close()

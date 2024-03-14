@@ -7,7 +7,7 @@ from discord.ext.commands import Bot, Cog
 from discord import app_commands
 from views import MyView1
 
-def is_admin(interaction: Interaction):
+def is_moderator(interaction: Interaction):
     if interaction.user.get_role(1211382535779520632):
         return True
     return False
@@ -18,7 +18,7 @@ class CommandsCog(Cog):
         self.client = client
 
     @app_commands.command(name="write")
-    @app_commands.check(is_admin)
+    @app_commands.check(is_moderator)
     async def write(self, interaction: Interaction, point: int):
         await interaction.response.send_message(
             view=MyView1(interaction.channel.name.capitalize(), point), ephemeral=True
