@@ -12,9 +12,6 @@ class Client(Bot):
         for filename in listdir("./cogs/commands"):
             if filename.endswith(".py"):
                 await self.load_extension(f"cogs.commands.{filename[:-3]}")
-        for filename in listdir("./cogs/tasks"):
-            if filename.endswith(".py"):
-                await self.load_extension(f"cogs.tasks.{filename[:-3]}")
 
     async def on_ready(self):
         print(f"Bot is ready. Logged in as {self.user.name}")
