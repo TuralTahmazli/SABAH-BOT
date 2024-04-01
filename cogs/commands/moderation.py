@@ -28,8 +28,11 @@ class CommandsCog(Cog):
     @app_commands.command(name="write")
     @app_commands.check(is_moderator)
     async def write(self, interaction: Interaction, point: int):
+        name = interaction.channel.name.capitalize()
+        if name[0] == "I":
+            name = name.replace("I", "İ", 1)
         await interaction.response.send_message(
-            view=MyView1(interaction.channel.name.capitalize(), point), ephemeral=True
+            view=MyView1(name, point), ephemeral=True
         )
 
     @app_commands.command(name="reset_db")
