@@ -2,7 +2,7 @@ from sys import path
 
 path.append(r"api")
 
-from discord import Interaction
+from discord import Interaction, User
 from discord.ext.commands import Bot, Cog
 from discord import app_commands
 from views import MyView1
@@ -15,7 +15,7 @@ from db import reset_db
 
 
 def is_owner(interaction: Interaction):
-    if interaction.user.is_owner():
+    if interaction.user.get_role(1165401502546940024):
         return True
     return False
 
@@ -33,9 +33,7 @@ class CommandsCog(Cog):
     @app_commands.command(name="write")
     @app_commands.check(is_moderator)
     async def write(self, interaction: Interaction, point: int):
-        name = interaction.channel.name.capitalize()
-        if name[0] == "I":
-            name = name.replace("I", "İ", 1)
+        name = interaction.channel.topic
         await interaction.response.send_message(
             view=MyView1(name, point), ephemeral=True
         )
@@ -43,6 +41,7 @@ class CommandsCog(Cog):
     @app_commands.command(name="update_old_rating")
     @app_commands.check(is_moderator)
     async def update_old_rating(self, interaction: Interaction):
+        await interaction.response.send_message(content="done", ephemeral=True)
         try:
             sheet_names = ["Cpp", "Python", "Ümumi"]
             range1, range2 = "H2:H25", "I2:I25"
@@ -57,15 +56,18 @@ class CommandsCog(Cog):
                     valueInputOption="USER_ENTERED",
                     body={"values": values},
                 ).execute()
-            return True
         except Exception as e:
             print("Error:", e)
-            return False
 
     @app_commands.command(name="reset_db")
     @app_commands.check(is_owner)
     async def reset_db(self, interaction: Interaction):
         reset_db()
+
+    @app_commands.command(name="test")
+    @app_commands.check(is_owner)
+    async def test(self, interaction: Interaction):
+        pass
 
 
 async def setup(client):

@@ -8,6 +8,7 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SERVICE_ACCOUNT_KEY_FILE = path.join(current_dir, "service_account_key.json")
 SPREADSHEET_ID = getenv("SPREADSHEET_ID")
 
+
 async def get_google_sheets():
     try:
         credentials = Credentials.from_service_account_file(
@@ -15,7 +16,7 @@ async def get_google_sheets():
         )
         service = build("sheets", "v4", credentials=credentials)
         sheets = service.spreadsheets()
-        
+
         return sheets
     except Exception as e:
         print("Error:", e)
@@ -31,4 +32,3 @@ async def get_google_sheets_values(sheets, sheet_name: str, range: str):
     except Exception as e:
         print("Error:", e)
         return None
-

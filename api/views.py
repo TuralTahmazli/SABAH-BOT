@@ -9,7 +9,7 @@ from google_sheets_api import (
     get_google_sheets_values,
     SPREADSHEET_ID,
 )
-from sqlite3 import connect
+# from sqlite3 import connect
 
 temp = {
     "B": "FM",
@@ -132,10 +132,10 @@ class MyEmbed(Embed):
             inline=False,
         )
 
-        with connect("database/log.db") as connection:
-            cursor = connection.cursor()
-            cursor.execute(
-                "INSERT INTO Log (writer_discord_id, wroten_name, column_name, point) VALUES (?, ?, ?, ?)",
-                (writer.id, wroten, column_name, point),
-            )
-            cursor.close()
+        # with connect("database/log.db") as connection:
+        #     cursor = connection.cursor()
+        #     cursor.execute(
+        #         "INSERT INTO Log (writer_discord_id, wroten_name, column_name, point) VALUES (?, ?, ?, ?)",
+        #         (writer.id, wroten, column_name, point),
+        #     )
+        #     cursor.close()
